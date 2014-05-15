@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>
+        BlogList
+        </title>
+
+    
+    </head>
+    <body>
+        <p>
+        {%for blog in blog%}
+        <a href="/readblog/{{blog.id}}">title:{{blog.title}}</a>{{blog.time}}
+        {{blog.username_id}}
+        {{blog.content|truncatewords:"30"}}<p>
+
+        {%endfor%}
+       </body>
+    <html>

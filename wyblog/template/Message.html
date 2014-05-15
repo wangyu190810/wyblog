@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+        Message
+        </title>
+    
+    </head>
+
+    <body>
+                        {%for message in Messages%}
+        <h3>userMessage</h3> {{message.content}}
+                        {%endfor%}
+        <form action='' method=POST>
+            email <input type='text' name='email'><p>
+            {%if error%}
+            {{error}}
+            {%endif%}<p>
+            content<input type='text' name='content' style="width:400px; height:200px;" ><p>
+            <input type='submit'value='Message' />
+
+        </body>
+    <html>

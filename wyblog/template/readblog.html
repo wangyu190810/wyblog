@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>
+        ReadBlog
+        </title>
+    
+    </head>
+
+    <body>
+        {%if blog%}
+        {{blog.title}}
+        {{blog.time}}<p>
+        {{blog.content}}
+        <a href="/user?pid={{blog.username}}"/>
+
+            {{blog.username}}</a>
+        {%endif%}
+       </body>
+    <html>

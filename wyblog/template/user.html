@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+        login
+        </title>
+    
+    </head>
+    <body>
+        <a href="listblog">this web all blog</a>
+        欢迎来到
+        {%if username%}
+        {{username}}
+        {%endif%}
+        blog<p>
+        <p>
+        {%for blog in blog%}
+        <h2>title:{{blog.title}}</h2><p>
+        {{blog.content}}<p>
+        
+        {%endfor%}
+       </body>
+    <html>
