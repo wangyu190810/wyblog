@@ -79,4 +79,14 @@ def user(request):
         blog=Blog.objects.filter(username_id=user.id)
     return render_to_response('user.html',{"username":request.GET['pid'],"blog":blog})
 
+def about_me(request):
+    return render_to_response('about_me.html')
+
+def artwork(request):
+    return render_to_response('artwork.html')
+
+def people(request):
+    user=User.objects.all()
+    return render_to_response('people.html',{"user":user})
+
 

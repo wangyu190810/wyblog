@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
-from blog.views import index,register,message,blog,listBlog,readBlog,loginuser,user
+from blog.views import index,register,message,\
+        blog,listBlog,readBlog,loginuser,user,\
+        people,artwork,about_me
+        
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,6 +21,9 @@ urlpatterns = patterns('',
     url(r'^listblog',listBlog),
     url(r'^user',user),
     url(r'^readblog/(\d{1,5})$',readBlog),
+    url(r'^people',people),
+    url(r'^artwork',artwork),
+    url(r'^about_me',about_me),
 #    url(r'^\d+/$',testtime),
 
     # Uncomment the next line to enable the admin:
