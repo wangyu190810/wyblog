@@ -1,9 +1,10 @@
+#-*-coding:utf-8-*-
 from django.shortcuts import render_to_response,HttpResponse
 from models import regUser,Message,Blog
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 import time
-
+#import tt
 def index(request):
     
     return render_to_response('index.html')
@@ -46,13 +47,17 @@ def blog(request):
     if not request.user.is_authenticated():
         return render_to_response('login.html')
     if request.method=="POST":
-        if request.POST['title']:
-            blog=Blog(title=request.POST['title'],
-                    content=request.POST['content'],
-                    time=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()),
-                    username_id=request.user.id)
-            blog.save()
+
+        a=request.user.id
+        print dir(a)
+        print "asdfasdfasdf"
+        blog=Blog(title=request.POST['title'],
+                content=request.POST['content'],
+                time=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()),
+                username_id=request.user.id)
+        blog.save()
         return render_to_response('user.html')
+    print request.user.id
 
     return render_to_response('blog.html')
 def listBlog(request):
@@ -63,8 +68,12 @@ def readBlog(request,r_id):
     showblog={}
     rblog=Blog.objects.get(id=r_id)
     usernameID= rblog.username_id
-    user=Blog.objects.get(id=usernameID)
-
+    print usernameID
+    #user=Blog.objects.filter(username_id=usernameID)
+    user=User.objects.get(id=usernameID)
+    print dir(user)
+    
+    print dir(user)
     if rblog:
         showblog['title']=rblog.title
         showblog['content']=rblog.content
