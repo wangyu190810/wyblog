@@ -1,6 +1,6 @@
 #-*-coding:utf-8-*-
 from django.shortcuts import render_to_response,HttpResponse
-from models import regUser,Message,Blog
+from models import regUser,Message,Blog,Comment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 import time
@@ -68,18 +68,32 @@ def readBlog(request,r_id):
     showblog={}
     rblog=Blog.objects.get(id=r_id)
     usernameID= rblog.username_id
-    print usernameID
+   # print usernameID
     #user=Blog.objects.filter(username_id=usernameID)
     user=User.objects.get(id=usernameID)
-    print dir(user)
-    
-    print dir(user)
     if rblog:
         showblog['title']=rblog.title
         showblog['content']=rblog.content
         showblog['time']=rblog.time
         showblog['username']=user.username
-    return render_to_response('readblog.html',{"blog":showblog})
+        if request.method=="POST":
+            if not request.user.is_authenticated():
+                return render_to_response('login.html')
+            content=request.POST['content']
+            username_id=request.user.id
+            blog_id=rblog.id
+            comment=Comment(username_id=username_id,
+                    content=content,
+                    time=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()),
+                    blog_id=blog_id)
+            comment.save()
+
+    comment=Comment.objects.filter(blog_id=r_id)
+
+
+
+
+    return render_to_response('readblog.html',{"blog":showblog,"comment":comment})
 
 def user(request):
     blog=None
