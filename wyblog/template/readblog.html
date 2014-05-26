@@ -8,12 +8,28 @@
 
     <body>
         {%if blog%}
-        {{blog.title}}
-        {{blog.time}}<p>
-        {{blog.content}}
-        <a href="/user?pid={{blog.username}}"/>
-
-            {{blog.username}}</a>
+        <h2> {{blog.title}}</h2>
+        {{blog.time}}
+        {%if edit%}
+        <a href="/updateblog?pid={{blog.id}}">修改</a></p>
         {%endif%}
+        {{blog.content}}</p>
+        <a href="/user?pid={{blog.username}}"/>
+            {{blog.username}}</a></p>
+        {%endif%}
+        <hr>
+        <h4>倾听评论</h4>
+        <hr>
+        {%for com in comment%}
+        <a href="/user?pid={{blog.username}}"/>
+            {{com.username}}</p></a>
+        {{com.content}}</p>
+        {{com.time}}</p>
+        {%endfor%}
+        
+
+        <form action="" method="post">
+            评论<textarea name="content" cols=40 rows=4></textarea></p>
+            提交<input type="submit">
        </body>
     <html>

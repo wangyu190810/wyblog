@@ -14,12 +14,13 @@
         {%if danger%}
         {{danger}}
         {%endif%}
-
+        {%if blog%}
         <form action='' method=POST>
-            title <input type='text' name='title'><p>
+            title <input type='text' name='title' value="{{blog.title}}"><p>
             
-            content<input type='text' name='content' style="width:400px; height:200px;" ><p>
+            content<input type='text' name='content' value="{{blog.content}}" style="width:400px; height:200px;" ><p>
             <input type='submit'value='Message' />
-
+        </form>
+        {%endif%}
         </body>
     <html>

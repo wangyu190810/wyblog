@@ -6,6 +6,8 @@
     
     </head>
     <body>
+        {% load staticfiles %}
+        <img src=static/img/1.jpg alt="My img">
         <a href="listblog">this web all blog</a>
         欢迎来到
         {%if username%}
@@ -14,7 +16,7 @@
         blog<p>
         <p>
         {%for blog in blog%}
-        <h2>title:{{blog.title}}</h2><p>
+        <a href="/readblog/{{blog.id}}">title{{blog.title}}</a><p>
         {{blog.content}}<p>
         
         {%endfor%}

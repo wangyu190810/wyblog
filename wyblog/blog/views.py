@@ -66,6 +66,8 @@ def listBlog(request):
 
 def readBlog(request,r_id):
     showblog={}
+    edit=False
+    username_id=request.user.id
     rblog=Blog.objects.get(id=r_id)
     usernameID= rblog.username_id
    # print usernameID
@@ -73,6 +75,7 @@ def readBlog(request,r_id):
     user=User.objects.get(id=usernameID)
     if rblog:
         showblog['title']=rblog.title
+        showblog['id']=rblog.id
         showblog['content']=rblog.content
         showblog['time']=rblog.time
         showblog['username']=user.username
@@ -80,7 +83,6 @@ def readBlog(request,r_id):
             if not request.user.is_authenticated():
                 return render_to_response('login.html')
             content=request.POST['content']
-            username_id=request.user.id
             blog_id=rblog.id
             comment=Comment(username_id=username_id,
                     content=content,
@@ -89,11 +91,13 @@ def readBlog(request,r_id):
             comment.save()
 
     comment=Comment.objects.filter(blog_id=r_id)
+    if username_id==usernameID:
+
+        edit=True
 
 
 
-
-    return render_to_response('readblog.html',{"blog":showblog,"comment":comment})
+    return render_to_response('readblog.html',{"blog":showblog,"comment":comment,"edit":edit})
 
 def user(request):
     blog=None
@@ -111,5 +115,22 @@ def artwork(request):
 def people(request):
     user=User.objects.all()
     return render_to_response('people.html',{"user":user})
+def updateblog(request):
+    blog=None
+    if request.GET.has_key("pid"):
+        blog=Blog.objects.get(id=request.GET['pid'])
+        print dir(Blog.comment_set)
+        if request.method=="POST":
+       #     blog=Blog(title=request.POST['title'],
+       #             content=request.POST['content'],
+       #             )
+       #     blog.save()
+       
+            blog.title=request.POST['title'] 
+            blog.content=request.POST['content']
+            blog.save()
+            return render_to_response('index.html')
+
+    return render_to_response('updateblog.html',{"blog":blog})
 
 
