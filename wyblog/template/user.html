@@ -1,24 +1,24 @@
-<html>
-    <head>
-        <title>
-        login
-        </title>
-    
-    </head>
-    <body>
-        {% load staticfiles %}
-        <img src=static/img/1.jpg alt="My img">
-        <a href="listblog">this web all blog</a>
-        欢迎来到
+{%include 'base.html'%}
+<h2><p align="right">
+            <a href="listblog">查看全部blog</a>
+            </p>
+            </h2>
+        <h4>
+        <p align="right">
+        {%block subtitle%}
         {%if username%}
         {{username}}
         {%endif%}
-        blog<p>
-        <p>
-        {%for blog in blog%}
-        <a href="/readblog/{{blog.id}}">title{{blog.title}}</a><p>
+        {%endblock%}
+        blog
+        <p/>
+        </h4>
+        <center>
+            {%for blog in blog%}
+            <h2>
+        <a href="/readblog?pid={{blog.id}}">title{{blog.title}}</a><p>
+        </h2>
         {{blog.content}}<p>
         
         {%endfor%}
-       </body>
-    <html>
+    </center>

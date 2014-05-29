@@ -1,18 +1,12 @@
-<html>
-    <head>
-        <title>
-        BlogList
-        </title>
-
-    
-    </head>
-    <body>
+{%include "base.html"%}
+        <center>
         <p>
         {%for blog in blog%}
-        <a href="/readblog/{{blog.id}}">title:{{blog.title}}</a>{{blog.time}}
+        <h1> 
+        <a href="/readblog?pid={{blog.id}}">title:{{blog.title}}</a></p>
+        </h1>
+        {{blog.time}}
         {{blog.username_id}}
         {{blog.content|truncatewords:"30"}}<p>
-
         {%endfor%}
-       </body>
-    <html>
+        </center>

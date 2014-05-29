@@ -1,21 +1,18 @@
-<html>
-    <head>
-        <title>
-        ReadBlog
-        </title>
-    
-    </head>
+{%include "base.html"%}
 
-    <body>
+        <center>
         {%if blog%}
-        <h2> {{blog.title}}</h2>
+        <h2> {{blog.title}}</h2>     
+        <h4> <a href="/user?pid={{blog.username}}"/>
+                {{blog.username}}</a></p>
+        </h4>
+
         {{blog.time}}
         {%if edit%}
         <a href="/updateblog?pid={{blog.id}}">修改</a></p>
         {%endif%}
         {{blog.content}}</p>
-        <a href="/user?pid={{blog.username}}"/>
-            {{blog.username}}</a></p>
+  
         {%endif%}
         <hr>
         <h4>倾听评论</h4>
@@ -31,5 +28,5 @@
         <form action="" method="post">
             评论<textarea name="content" cols=40 rows=4></textarea></p>
             提交<input type="submit">
-       </body>
-    <html>
+        </form> 
+        </center>
