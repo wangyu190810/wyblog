@@ -98,7 +98,7 @@ def readBlog(request):
             showblog['username']=user.username
             if request.method=="POST":
                 if not request.user.is_authenticated():
-                    return render_to_response('login.html')
+                    return HttpResponseRedirect('login')
                 content=request.POST['content']
                 blog_id=rblog.id
                 comment=Comment(username_id=username_id,
@@ -117,8 +117,10 @@ def user(request):
     blog=None
     if request.GET.has_key("pid"):
         user=User.objects.get(username=request.GET['pid']) 
+        requsername=request.user.username
         blog=Blog.objects.filter(username_id=user.id)
-    return render_to_response('user.html',{"username":request.GET['pid'],"blog":blog})
+    
+    return render_to_response('user.html',{"username":request.GET['pid'],"requser":requsername,"blog":blog})
 
 def about_me(request):
     return render_to_response('about.html')
@@ -128,7 +130,7 @@ def artwork(request):
 
 def people(request):
     user=User.objects.all()
-    return render_to_response('contact.html',{"user":user})
+    return render_to_response('member.html',{"user":user})
 def updateblog(request):
     blog=None
     if request.GET.has_key("pid"):
@@ -147,3 +149,5 @@ def logout_view(request):
     logout(request)
     return render_to_response('index.html')
 
+def honor(request):
+    return render_to_response('honor.html')

@@ -34,4 +34,6 @@ class Comment(models.Model):
     content=models.TextField()
     time=models.DateTimeField()
     blog=models.ForeignKey(Blog)
-
+#
+#class Honor(models.Model):
+#    downfile=FileField(updo)
