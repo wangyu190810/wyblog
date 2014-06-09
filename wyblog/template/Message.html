@@ -11,9 +11,10 @@
         <h3>userMessage</h3> {{message.content}}
                         {%endfor%}
         <form action='' method=POST>
+            {%csrf_token%}
             email <input type='text' name='email'><p>
             {%if error%}
-            {{error}}
+            <span style="color:red">{{error}}</span>
             {%endif%}<p>
             content<input type='text' name='content' style="width:400px; height:200px;" ><p>
             <input type='submit'value='Message' />

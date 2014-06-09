@@ -26,6 +26,7 @@
         
 
         <form action="" method="post">
+            {%csrf_token%}
             评论<textarea name="content" cols=40 rows=4></textarea></p>
             提交<input type="submit">
         </form> 

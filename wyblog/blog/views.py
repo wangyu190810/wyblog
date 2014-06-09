@@ -1,9 +1,10 @@
 #-*-coding:utf-8-*-
 from django.shortcuts import render_to_response,HttpResponse
 from django.http import HttpResponseRedirect
-from models import regUser,Message,Blog,Comment
+from models import regUser,Message,Blog,Comment,News
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from django.template import RequestContext
 import time
 #import tt
 def index(request):
@@ -19,18 +20,17 @@ def loginuser(request):
             login(request,user)
             id=request.user.id
             blog=Blog.objects.filter(username_id=id)
-            return render_to_response('user.html',{"username":user,'blog':blog})
+            return render_to_response('user.html',{"username":user,'blog':blog},context_instance=RequestContext(request))
         else:
             error=True
-            return render_to_response('login.html',{"error":error})
-    return render_to_response('login.html',)
+            return render_to_response('login.html',{"error":error},context_instance=RequestContext(request))
+    return render_to_response('login.html',
+            context_instance=RequestContext(request))
 
 def register(request):
     if request.method=="POST":
         if request.POST['password']==request.POST['rpassword']:
             testuser=User.objects.filter(username=request.POST['username'])
-            print len(testuser)
-            pa=[]
             if not len(testuser):
 
                 user=User.objects.create_user(
@@ -41,41 +41,41 @@ def register(request):
                 user.save()
                 return HttpResponseRedirect('/login')
             test=True
-            return render_to_response('register.html',{"test":True})
+            return render_to_response('register.html',{"test":True},context_instance=RequestContext(request))
         error=True
-        return render_to_response('register.html',{"error":error})
+        return render_to_response('register.html',{"error":error},context_instance=RequestContext(request))
         
-    return render_to_response('register.html')
+    return render_to_response('register.html',
+            context_instance=RequestContext(request))
 
 # Create your views here.
 def message(request):
+    error=False
     if request.method=="POST":
-        if request.POST['email']:
-            M=Message(email=request.POST['email'],
+        if request.POST['Email']:
+            M=Message(email=request.POST['Email'],
                 content=request.POST['content'])
             M.save()
-    error="You must input your email"
+            return HttpResponseRedirect('/contact')
+        error=True
 
     userMessage=Message.objects.all()
-    return render_to_response('contact.html',{"Messages":userMessage,"error":error})
+    return render_to_response('contact.html',{"message":userMessage,"error":error},context_instance=RequestContext(request))
 
 def blog(request):
     if not request.user.is_authenticated():
-        return render_to_response('login.html')
+        return render_to_response('login.html',context_instance=RequestContext(request))
     if request.method=="POST":
 
         a=request.user.id
-        print dir(a)
-        print "asdfasdfasdf"
         blog=Blog(title=request.POST['title'],
                 content=request.POST['content'],
                 time=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()),
                 username_id=request.user.id)
         blog.save()
-        return render_to_response('user.html')
-    print request.user.id
+        return render_to_response('user.html',context_instance=RequestContext(request))
 
-    return render_to_response('blog.html')
+    return render_to_response('blog.html',context_instance=RequestContext(request))
 def listBlog(request):
     bloglist=Blog.objects.order_by('-id')
     return render_to_response('listblog.html',{"blog":bloglist})
@@ -111,7 +111,7 @@ def readBlog(request):
             edit=True
         
         comment=Comment.objects.filter(blog_id=request.GET['pid'])
-    return render_to_response('readblog.html',{"blog":showblog,"comment":comment,"edit":edit})
+    return render_to_response('readblog.html',{"blog":showblog,"comment":comment,"edit":edit},context_instance=RequestContext(request))
 
 def user(request):
     blog=None
@@ -140,9 +140,8 @@ def updateblog(request):
             blog.title=request.POST['title'] 
             blog.content=request.POST['content']
             blog.save()
-            return render_to_response('index.html')
-
-    return render_to_response('updateblog.html',{"blog":blog})
+            return HttpResponseRedirect('/index')
+    return render_to_response('updateblog.html',{"blog":blog},context_instance=RequestContext(request))
 
 
 def logout_view(request):
@@ -151,3 +150,12 @@ def logout_view(request):
 
 def honor(request):
     return render_to_response('honor.html')
+def news(request):
+    news=News.objects.order_by("-id")
+    return render_to_response("newslist.html",{"news":news})
+def readnews(request):
+    new=None
+    if request.GET.has_key("pid"):
+        new=News.objects.get(id=request.GET['pid'])
+    return render_to_response("new.html",{"new":new})
+

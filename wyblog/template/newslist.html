@@ -1,0 +1,11 @@
+{%include "base.html"%}
+        <center>
+        <p>
+        {%for new in news%}
+        <h1> 
+        <a href="/readnews?pid={{new.id}}">title:{{new.title}}</a></p>
+        </h1>
+        {{new.time}}
+        {{new.content|truncatewords:"30"}}<p>
+        {%endfor%}
+        </center>

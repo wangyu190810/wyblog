@@ -16,6 +16,7 @@
         {%endif%}
         {%if blog%}
         <form action='' method=POST>
+            {%csrf_token%}
             title <input type='text' name='title' value="{{blog.title}}"><p>
             
             content<textarea name='content' style="width:400px; height:200px;" >{{blog.content}}</textarea></p>

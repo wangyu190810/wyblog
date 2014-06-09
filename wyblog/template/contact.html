@@ -1,9 +1,27 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
+
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>友好外交</title>
-
+    <style type="text/css">
+        <!--
+        .cls{
+            border:pink 1px solid;
+            
+            width:600px;
+            height:100px;
+        }
+        .cls1{
+            border:black 1px solid;
+           
+            width:600px;
+            height:150px;
+        }
+        --!>
+        </style>
+</head>
   <body>
     <br>
     <br>
@@ -19,8 +37,20 @@
     <br>
     <hr>
     <hr>
-	<h1>友站？？？有么？？？暂时还没！</h2>
-
+    <form  action=""method="post">
+        {%csrf_token%}
+        <center>
+            {%for mess in message%}
+            留言展示：{{mess.email}}
+            {{mess.content}}<br>    
+            {%endfor%}
+            {%if error%}
+            <span style="color:red">you must input you true Emial</span>
+            {%endif%}
+            &nbsp;&nbsp; E-mail:<input type="text"name="Email"><br><br>
+        &nbsp;留言板 <input class="cls1"type="textarea"name="content"><br>
+        <input  type="submit" value="留言"/></center>
+    </form>
 
   
 

@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from blog.views import index,register,message,\
         blog,listBlog,readBlog,loginuser,user,\
         people,artwork,about_me,updateblog,logout_view,\
-        honor
+        honor,news,readnews
         
 # Uncomment the next two lines to enable the admin:
 from django.conf import settings
@@ -30,10 +30,12 @@ urlpatterns = patterns('',
     url(r'^about',about_me),
     url(r'^updateblog',updateblog),
 #    url(r'^\d+/$',testtime),
-    url(r'logout',logout_view),
-    url(r'honor',honor),
+    url(r'^logout',logout_view),
+    url(r'^honor',honor),
+    url(r'^new',news),
+    url(r"^readnews",readnews),
     # Uncomment the next line to enable the admin:
-    url(r"markdown/",include('django_markdown.urls')),
+    url(r"^markdown/",include('django_markdown.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -12,7 +12,9 @@ class News(models.Model):
     title=models.CharField(max_length=20)
     content=models.TextField()
     time=models.DateTimeField()
-   # downfile=models.FileField(upload_to='album/%m-%Y/')
+    #downfile=models.FileField(upload_to='album/%m-%Y/')
+    def __unicode__(self):
+        return u"%s %s"%(self.title,self.time)
 
     
 class regUser(models.Model):
