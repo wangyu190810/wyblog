@@ -11,8 +11,8 @@ class Blog(models.Model):
 class News(models.Model):
     title=models.CharField(max_length=20)
     content=models.TextField()
-    time=models.DateTimeField()
-    #downfile=models.FileField(upload_to='album/%m-%Y/')
+    time=models.DateField()
+    downfile=models.FileField("File",upload_to='news',max_length=100)
     def __unicode__(self):
         return u"%s %s"%(self.title,self.time)
 
