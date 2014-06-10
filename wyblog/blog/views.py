@@ -5,11 +5,13 @@ from models import regUser,Message,Blog,Comment,News
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.template import RequestContext
+from django.core.paginator import Paginator
+
 import time
 #import tt
 def index(request):
     
-    return render_to_response('index.html')
+    return render_to_response('index.html',{"username":request.user})
 
 def loginuser(request):
     if request.method=="POST":
@@ -77,8 +79,14 @@ def blog(request):
 
     return render_to_response('blog.html',context_instance=RequestContext(request))
 def listBlog(request):
-    bloglist=Blog.objects.order_by('-id')
-    return render_to_response('listblog.html',{"blog":bloglist})
+    pagenum=1
+    if request.REQUEST.has_key("pid"):
+        pagenum=request.REQUEST['pid']
+    blogall=Blog.objects.order_by("-id")
+    p=Paginator(blogall,3)
+    page=p.page(pagenum)
+
+    return render_to_response('listblog.html',{"p":p,"page":page,"username":request.user})
 
 def readBlog(request):
     showblog={}

@@ -1,7 +1,8 @@
 {%include "base.html"%}
+{%include "pagenav.html"%}
         <center>
         <p>
-        {%for blog in blog%}
+        {%for blog in page.object_list%}
         <h1> 
         <a href="/readblog?pid={{blog.id}}">title:{{blog.title}}</a></p>
         </h1>
@@ -9,4 +10,6 @@
         {{blog.username_id}}
         {{blog.content|truncatewords:"30"}}<p>
         {%endfor%}
-        </center>
+    </center>
+
+{%include "pagenav.html"%}
