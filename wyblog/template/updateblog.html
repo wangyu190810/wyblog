@@ -1,7 +1,9 @@
+{%include "base.html"%}
+
 <html>
     <head>
         <title>
-        Message
+        Updateblog
         </title>
     
     </head>
@@ -15,13 +17,15 @@
         {{danger}}
         {%endif%}
         {%if blog%}
+        <center>
         <form action='' method=POST>
             {%csrf_token%}
             title <input type='text' name='title' value="{{blog.title}}"><p>
             
-            content<textarea name='content' style="width:400px; height:200px;" >{{blog.content}}</textarea></p>
+            content<textarea name='content' style="width:40%" >{{blog.content}}</textarea></p>
             <input type='submit'value='Message' />
         </form>
+        </center>
         {%endif%}
         </body>
     <html>

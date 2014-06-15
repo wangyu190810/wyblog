@@ -1,0 +1,31 @@
+{%include "tinymce.html"%}
+
+<html>
+
+
+    <head>
+        <title>
+        Message
+        </title>
+    
+    </head>
+
+    <body>
+        {%if username%}
+        <h3>{{username}}</h3>
+        {%endif%}
+        
+        {%if danger%}
+        {{danger}}
+        {%endif%}
+
+        <form action='' method=POST>
+            {%csrf_token%}
+            title <input type='text' name='title'><p>
+            
+            content<textarea name='content' style="width:400px; height:200px;" ></textarea>
+            <p>
+            <input type='submit'value='Message' />
+
+        </body>
+    <html>

@@ -1,9 +1,22 @@
+
 <html>
+
+
     <head>
         <title>
         Message
         </title>
     
+        <script type="text/javascript" src="static/js/tinymce/tinymce.min.js"></script>
+            <script type="text/javascript">
+                tinyMCE.init({
+                    mode:"textareas",
+                    theme:"modern",
+                
+                });
+
+            </script>
+
     </head>
 
     <body>
@@ -19,7 +32,8 @@
             {%csrf_token%}
             title <input type='text' name='title'><p>
             
-            content<textarea name='content' style="width:400px; height:200px;" ></textarea><p>
+            content<TEXTAREA name='content'></TEXTAREA>
+            <p>
             <input type='submit'value='Message' />
 
         </body>

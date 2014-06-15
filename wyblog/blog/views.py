@@ -1,7 +1,7 @@
 #-*-coding:utf-8-*-
 from django.shortcuts import render_to_response,HttpResponse
 from django.http import HttpResponseRedirect
-from models import regUser,Message,Blog,Comment,News
+from models import regUser,Message,Blog,Comment,News,Honor
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.template import RequestContext
@@ -114,11 +114,11 @@ def readBlog(request):
                         time=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime()),
                         blog_id=blog_id)
                 comment.save()
-    
-        if username_id==usernameID:
-            edit=True
+            if request.method=="GET":
+                if username_id==usernameID:
+                    edit=True
         
-        comment=Comment.objects.filter(blog_id=request.GET['pid'])
+            comment=Comment.objects.filter(blog_id=request.GET['pid'])
     return render_to_response('readblog.html',{"blog":showblog,"comment":comment,"edit":edit},context_instance=RequestContext(request))
 
 def user(request):
@@ -143,7 +143,6 @@ def updateblog(request):
     blog=None
     if request.GET.has_key("pid"):
         blog=Blog.objects.get(id=request.GET['pid'])
-        print dir(Blog.comment_set)
         if request.method=="POST":
             blog.title=request.POST['title'] 
             blog.content=request.POST['content']
@@ -157,7 +156,8 @@ def logout_view(request):
     return render_to_response('index.html')
 
 def honor(request):
-    return render_to_response('honor.html')
+    hon=Honor.objects.all()
+    return render_to_response('honor.html',{"honor":hon})
 def news(request):
     news=News.objects.order_by("-id")
     return render_to_response("newslist.html",{"news":news})
