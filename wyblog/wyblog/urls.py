@@ -36,6 +36,8 @@ urlpatterns = patterns('',
     url(r"^readnews",readnews),
     # Uncomment the next line to enable the admin:
     url(r"^markdown/",include('django_markdown.urls')),
+    url(r"^tinymce/",include('tinymce.urls')),
+    url(r"comments/",include('django.contrib.comments.urls')),
     url(r'^admin/', include(admin.site.urls)),
     (r'media/(?P<path>.*)$',"django.views.static.serve",{"document_root":'./media'}),
 )+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

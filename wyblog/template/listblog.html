@@ -1,14 +1,21 @@
 {%include "base.html"%}
 {%include "pagenav.html"%}
-        <center>
+{%load markdown_deux_tags%}
+
+<center>
         <p>
         {%for blog in page.object_list%}
         <h1> 
-        <a href="/readblog?pid={{blog.id}}">title:{{blog.title}}</a></p>
-        </h1>
+        <a href="/readblog?pid={{blog.id}}">{{blog.title}}</a></p>
+    
+    </h1>
+
+        <a href="/readblog?pid={{blog.id}}">阅读全文</a></p>
+        </p>
+
+        {{blog.username}}</br>
         {{blog.time}}
-        {{blog.username_id}}
-        {{blog.content|truncatewords:"30"}}<p>
+
         {%endfor%}
     </center>
 

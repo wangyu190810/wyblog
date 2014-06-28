@@ -10,8 +10,9 @@
     <!-- Le styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="/static/js/syntaxhighlighter/styles/shCore.css" type="text/css" rel="stylesheet"/>
-    <link href="/static/js/syntaxhighlighter/styles/shThemeDjango.css" type="text/css" rel="stylesheet"/>
+    <link href="static/css/code.css" rel="stylesheet">
+    <link href="static/js/syntaxhighlighter/styles/shCore.css" type="text/css" rel="stylesheet"/>
+    <link href="static/js/syntaxhighlighter/styles/shThemeDjango.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="/static/js/syntaxhighlighter/scripts/shCore.js"></script>
     <script type="text/javascript" src="/static/js/syntaxhighlighter/scripts/shBrushPython.js"></script>
     <script type="text/javascript" src="/static/js/syntaxhighlighter/scripts/shBrushXml.js"></script>
@@ -27,13 +28,21 @@
     <script type="text/javascript" src="/static/js/syntaxhighlighter/scripts/shBrushPerl.js"></script>
     <script type="text/javascript" src="/static/js/syntaxhighlighter/scripts/shCore.js"></script>
     <script  type = "text/javascript">
-            SyntaxHighlighter.all();
+            SyntaxHighlighter.all("code");
+
     </script>
     <script type="text/javascript" src="static/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
-        tinyMCE.init({
-                mode:"textareas",
-                  });
+        tinyMCE.init({ 
+            mode:"textareas",
+            plugins:"code",
+            max_height:200,
+            min_height:160,
+            height:180
+
+                    
+    });
+
     </script>
     <style>
 

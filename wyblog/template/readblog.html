@@ -1,6 +1,5 @@
 {%include "base.html"%}
 {%load markdown_deux_tags%}
-        <center>
         {%if blog%}
         <h2> {{blog.title}}</h2>     
         <h4> <a href="/user?pid={{blog.username}}"/>
@@ -11,11 +10,10 @@
         {%if edit%}
         <a href="/updateblog?pid={{blog.id}}">修改</a></p>
         {%endif%}
-         <link type="text/css" rel="stylesheet" href="static/css/code.css"/>
-        <div class ="codelilite">
-      
-        {{blog.content|safe}}</p>
-        </div>
+        <div  class="codehilite">
+        {{blog.content|safe}}
+         </div>
+        </p>
         {%endif%}
         <hr>
         <h4>倾听评论</h4>
@@ -23,9 +21,8 @@
         {%for com in comment%}
         <a href="/user?pid={{blog.username}}"/>
             {{com.username}}</p></a>
-       <link type="text/css" rel="stylesheet" href="static/css/code.css"/>
-        <div class ="codelilite">
-        <per>{{com.content|safe}}</pre></div></p>
+      <pre name="code" class="brush" class="highlight">
+       {{com.content|safe}}</pre></div></p>
         {{com.time}}</p>
         {%endfor%}
         
@@ -35,4 +32,3 @@
             评论<textarea  name="content" style="width:20%"></textarea></p>
             提交<input type="submit">
         </form> 
-        </center>

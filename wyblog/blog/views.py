@@ -127,8 +127,9 @@ def user(request):
         user=User.objects.get(username=request.GET['pid']) 
         requsername=request.user.username
         blog=Blog.objects.filter(username_id=user.id)
+        bloglist=blog.order_by('-id')
     
-    return render_to_response('user.html',{"username":request.GET['pid'],"requser":requsername,"blog":blog})
+    return render_to_response('user.html',{"username":request.GET['pid'],"requser":requsername,"blog":bloglist})
 
 def about_me(request):
     return render_to_response('about.html')

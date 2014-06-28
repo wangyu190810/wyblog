@@ -1,4 +1,6 @@
+<center>
 {%if page.has_previous%}
+
 <a href="listblog?pid={{page.previous_page_number}}">上一页</a>
 {%endif%}
 {%for pn in p.page_range%}
@@ -8,4 +10,5 @@
     {%if page.has_next%}
     <a href="listblog?pid={{page.next_page_number}}">下一页</a></li>
     {%endif%}
-    
+
+    </center>
